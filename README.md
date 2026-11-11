@@ -67,3 +67,15 @@ uv venv && . .venv/bin/activate  # Windows: .venv\Scripts\activate
 uv pip install pytest
 pytest -q
 ```
+
+## Docker
+
+Multi-stage, multi-arch (`linux/amd64` + `linux/arm64`), runs as non-root.
+
+```bash
+docker build -t shotcalling .
+docker run --rm shotcalling
+```
+
+The build stage runs the test suite as a gate; the runtime stage ships only
+the module on `python:3.12-slim` under a non-root user.
